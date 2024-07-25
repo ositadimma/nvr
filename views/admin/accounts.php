@@ -1,17 +1,7 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT']."/os0072/connection.php";
 session_start();
-// $sql = "SELECT Lastname, Age FROM Persons ORDER BY Lastname";
-// $result = mysqli_query($mysqli, $sql);
 
-
-// // Fetch all
-// mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-// // Free result set
-// mysqli_free_result($result);
-
-// mysqli_close($mysqli);
 ?> 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,12 +17,12 @@ session_start();
     <div class='dashboard-container'>
     <div class='sideboardcover'>
       <?php
-        include "sideboard.php";
+        include "../components/sidenav.php";
         ?>
           
           <div class style='padding-left: 50px; padding-top: 30px; width: 100%'>
            <span>search user</span> <input type="search">
-           <div><button>add user</button></div>
+           <div><button>add account</button></div>
            <div class='table-body'>
             <div class='table-container'>
 
@@ -41,8 +31,8 @@ session_start();
   <tr>
     <th class='thead'>Name</th>
     <th class='thead'>Voter Id</th>
-    <th class='thead'>Polling unit</th>
-    <th class='thead'>Approved</th>
+    <th class='thead'>unit</th>
+    <th class='thead'>status</th>
     <th class='thead'></th>
   </tr>
   <!-- <tr> -->
