@@ -22,13 +22,16 @@ if (!isset($_SESSION['loggedin'])) {
 			<div>
 				<h1>NVR</h1>
 				<a href="profile.php"><i class="fas fa-user-circle"></i>Profile</a>
-					<a href="./views/users.php"><i class="fas fa-user-circle"></i>admin</a>
+			        <a href="./views/admin/accounts.php"><i class="fas fa-user-circle"></i>admin</a>
+				<a href="./views/admin/accounts.php"><i class="fas fa-user-circle"></i>info</a>
 				<a href="logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
 			</div>
 		</nav>
 		<div class="content">
-			<h2>Home Page</h2>
+			<h2>National Voter Register</h2>
 			<p>Welcome back, <?=htmlspecialchars($_SESSION['name'], ENT_QUOTES)?>!</p>
+			<div>Register to vote and make your voice heard</div>
+			<button>Learn More</button>
 		</div>
 	</body>
 </html>
