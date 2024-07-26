@@ -3,13 +3,13 @@
 session_start();
 // If the user is not logged in redirect to the login page...
 if (!isset($_SESSION['loggedin'])) {
-	header('Location: index.html');
+	header('Location: ../index.php');
 	exit;
 }
 $DATABASE_HOST = 'localhost';
 $DATABASE_USER = 'root';
 $DATABASE_PASS = '';
-$DATABASE_NAME = 'phplogin';
+$DATABASE_NAME = 'nvr';
 $con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
 if (mysqli_connect_errno()) {
 	exit('Failed to connect to MySQL: ' . mysqli_connect_error());
@@ -29,15 +29,34 @@ $stmt->close();
 	<head>
 		<meta charset="utf-8">
 		<title>Profile Page</title>
-		<link href="style.css" rel="stylesheet" type="text/css">
+		<link href="../css/style.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
 	</head>
 	<body class="loggedin">
-		<nav class="navtop">
+	<nav class="navtop">
 			<div>
-				<h1>Website Title</h1>
-				<a href="profile.php"><i class="fas fa-user-circle"></i>Profile</a>
-				<a href="logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
+				<h1>NVR</h1>
+				
+				<?php
+				// authentication
+				if (isset($_SESSION['loggedin'])) {
+					echo '<a href="./profile.php"><i class="fas fa-user-circle"></i>Profile</a>';
+				}
+				if (isset($_SESSION['loggedin'])) {
+					echo '<a href="./admin/accounts.php"><i class="fas fa-user-circle"></i>admin</a>';
+				}
+				?>    
+				<a href="./admin/accounts.php"><i class="fas fa-user-circle"></i>info</a>
+				<?php
+
+				if (!isset($_SESSION['loggedin'])) {
+					echo '<a href="./login.php"><i class="fas fa-user-circle"></i>Sign in</a>
+					<a href="./signup.php"><i class="fas fa-user-circle"></i>Sign up</a>';
+				}
+				if (isset($_SESSION['loggedin'])) {
+					echo '<a href="../logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>';
+				}
+				?> 
 			</div>
 		</nav>
 		<div class="content">
@@ -46,17 +65,37 @@ $stmt->close();
 				<p>Your account details are below:</p>
 				<table>
 					<tr>
-						<td>Username:</td>
+						<td>firstname:</td>
 						<td><?=htmlspecialchars($_SESSION['name'], ENT_QUOTES)?></td>
 					</tr>
 					<tr>
-						<td>Password:</td>
-						<td><?=htmlspecialchars($password, ENT_QUOTES)?></td>
+						<td>middlename:</td>
+						<td><?=htmlspecialchars($_SESSION['middlename'], ENT_QUOTES)?></td>
 					</tr>
 					<tr>
-						<td>Email:</td>
-						<td><?=htmlspecialchars($email, ENT_QUOTES)?></td>
+						<td>Surname:</td>
+						<td><?=htmlspecialchars($_SESSION['surname'], ENT_QUOTES)?></td>
 					</tr>
+					<?php 
+						if ($_SESSION['type']=='basic') {
+							echo '<tr>
+							<td>voter Id:</td>
+							<td>'.htmlspecialchars($_SESSION['user_ref'], ENT_QUOTES).'</td>
+							</tr>
+							<tr>
+								<td>station:</td>
+								<td>'.htmlspecialchars($_SESSION['votingstation'], ENT_QUOTES).'</td>
+							</tr>
+						<tr>
+							<td>Address:</td>
+							<td>'.htmlspecialchars($_SESSION['line1'], ENT_QUOTES).'</td>
+							<td>'.htmlspecialchars($_SESSION['line2'], ENT_QUOTES).'</td>
+							<td>'.htmlspecialchars($_SESSION['post_code'], ENT_QUOTES).'</td>
+							<td>'.htmlspecialchars($_SESSION['state'], ENT_QUOTES).'</td>
+						</tr>';
+						}
+					?>
+					
 				</table>
 			</div>
 		</div>
