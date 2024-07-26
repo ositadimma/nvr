@@ -37,16 +37,15 @@ session_start();
   </tr>
   <!-- <tr> -->
     <?php
-        $query0= "SELECT email, firstname, middlename, lastname, voterId from users where type='basic'";
+        $query0= "SELECT email, firstname, middlename, surname from accounts";
         $data0 = mysqli_query($mysqli, $query0);
         $data0Array = $data0 -> fetch_all(MYSQLI_ASSOC);;//mysqli_fetch_array($data0, MYSQLI_NUM);
         print_r($data0Array);
         echo sizeof($data0Array);
         for ($i=0; $i <sizeof($data0Array) ; $i++) { 
           echo "<tr>
-                  <td class='tname'>".$data0Array[$i]['firstname'].' '.$data0Array[$i]['middlename'].' '.$data0Array[$i]['lastname']."</td></tr>
-                  <td>".$data0Array[$i]['voterId']."</td>
-                  <td>".$data0Array[$i]['polling_unit']."</td>
+                  <td class='tname'>".$data0Array[$i]['firstname'].' '.$data0Array[$i]['middlename'].' '.$data0Array[$i]['surname']."</td></tr>
+                
                   ";
         # code...
         // echo '<div>'.$data0Array[$i].'</div>';
