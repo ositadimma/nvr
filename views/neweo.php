@@ -118,9 +118,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $param_password = password_hash($password, PASSWORD_DEFAULT);
         $res = mysqli_query($con, "INSERT INTO accounts (ref_no, email, firstname, middlename, surname, 
         password, type) VALUES ('$refno','$param_email','$param_firstname', '$param_middlename', 
-        '$param_surname', '$param_password', 'basic')");
+        '$param_surname', '$param_password', 'eo')");
         if($res){
-            header("Location: login.php");
+            header("Location: ../index.php");
         } else {
             $general_err= 'something went wrong';
         }
@@ -144,8 +144,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 <body>
     <div class="wrapper">
-        <h2>Sign Up</h2>
-        <p>Create a new voter account.</p>
+        <p>Create a an election officer</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
                 <label>firstname</label>
@@ -166,26 +165,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <label>email</label>
                 <input type="text" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
                 <span class="invalid-feedback"><?php echo $email_err; ?></span>
-            </div> 
-            <label>Address</label>     
+            </div>      
             <div class="form-group">
-                <label>line 1</label>
-                <input type="password" name="line1" class="form-control ">
-                
+                <label>Password</label>
+                <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+                <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
             <div class="form-group">
-                <label>line 2</label>
-                <input type="password" name="line2" class="form-control">
+                <label>Confirm Password</label>
+                <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
+                <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
             </div>
             <div class="form-group">
-                <label>post code</label>
-                <input type="password" name="post_code" class="form-control ">
-                
+                <input type="submit" class="btn btn-primary" value="Submit">
+                <input type="reset" class="btn btn-secondary ml-2" value="Reset">
             </div>
-            <div class="form-group">
-                <label>State</label>
-                <input type="password" name="state" class="form-control">
-            </div>
+          
         </form>
         <span class="invalid-feedback"><?php echo $general_err; ?></span>
     </div>    
