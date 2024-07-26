@@ -95,7 +95,7 @@ $stmt->close();
 						</tr>';
 						}
 					?>
-					
+					<a href=voter_reg.php><button>edit</button></a>
 				</table>
 			</div>
 		</div>

@@ -166,22 +166,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <label>email</label>
                 <input type="text" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
                 <span class="invalid-feedback"><?php echo $email_err; ?></span>
-            </div>      
+            </div> 
+            <label>Address</label>     
             <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
-                <span class="invalid-feedback"><?php echo $password_err; ?></span>
+                <label>line 1</label>
+                <input type="password" name="line1" class="form-control ">
+                
             </div>
             <div class="form-group">
-                <label>Confirm Password</label>
-                <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
-                <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
+                <label>line 2</label>
+                <input type="password" name="line2" class="form-control">
             </div>
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Submit">
-                <input type="reset" class="btn btn-secondary ml-2" value="Reset">
+                <label>post code</label>
+                <input type="password" name="post_code" class="form-control ">
+                
             </div>
-            <p>Already have an account? <a href="login.php">Login here</a>.</p>
+            <div class="form-group">
+                <label>State</label>
+                <input type="password" name="line2" class="form-control">
+            </div>
         </form>
         <span class="invalid-feedback"><?php echo $general_err; ?></span>
     </div>    
