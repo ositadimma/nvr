@@ -14,6 +14,9 @@ session_start();
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body >
+  <?php
+    include '../../components/sidenav.php'
+  ?>
     <div class='dashboard-container'>
     <div class='sideboardcover'>
       <?php
@@ -45,8 +48,9 @@ session_start();
         for ($i=0; $i <sizeof($data0Array) ; $i++) { 
           echo "<tr>
                   <td class='tname'>".$data0Array[$i]['firstname'].' '.$data0Array[$i]['middlename'].' '.$data0Array[$i]['surname']."</td></tr>
-                
+                <a href='../
                   ";
+            
         # code...
         // echo '<div>'.$data0Array[$i].'</div>';
         // echo "<td>".$data0Array[$i]['firstname']."</td>";
