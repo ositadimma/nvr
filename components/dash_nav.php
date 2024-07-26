@@ -1,8 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../../css/style.css" rel="stylesheet" type="text/css">
+    <title>Document</title>
+</head>
+<body>
 <div class='dash-nav'>
-<a href='../../index.php'><img style='width: 40px; margin-left: 30px' src="../../images/home-1-svgrepo-com.svg" alt=""></a>
-    <a class='side-nav' href='users.php'>Complete Registration</a>
-    <a class='side-nav' href='pu.php'>Polling Units</a>
-    <a class='side-nav' href='pu.php'>New election officer</a>
-    <a class='side-nav' href='newadmin.php'>New admin</a>
-    <a class='side-nav' href='../logout.php'>Log out</a>
+    <a class='side-nav' href='../../index.php'>Home</a>
+    <a class='side-nav' href='accounts.php'>Users</a>
+    <a class='side-nav' href='../voter_reg.php'>Complete Registration</a>
+    <a class='side-nav' href='stations.php'>Polling Units</a>
+    <a class='side-nav' href='../neweo.php'>New election officer</a>
+    <a class='side-nav' href='../newadmin.php'>New admin</a>
+    <a class='side-nav' href='../../logout.php'>Log out</a>
 </div>
+</body>
+</html>

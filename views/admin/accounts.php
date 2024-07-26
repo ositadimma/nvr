@@ -1,6 +1,5 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT']."/os0072/connection.php";
-session_start();
+include "../../db_conn.php";
 
 ?> 
 <!DOCTYPE html>
@@ -14,18 +13,15 @@ session_start();
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body >
-  <?php
-    include '../../components/sidenav.php'
-  ?>
     <div class='dashboard-container'>
     <div class='sideboardcover'>
       <?php
-        include "../components/sidenav.php";
+        include "../../components/dash_nav.php";
         ?>
           
           <div class style='padding-left: 50px; padding-top: 30px; width: 100%'>
            <span>search user</span> <input type="search">
-           <div><button>add account</button></div>
+           <a href='../voter_reg.php'><button>add account</button></a>
            <div class='table-body'>
             <div class='table-container'>
 
@@ -40,39 +36,20 @@ session_start();
   </tr>
   <!-- <tr> -->
     <?php
-        $query0= "SELECT email, firstname, middlename, surname from accounts";
-        $data0 = mysqli_query($mysqli, $query0);
-        $data0Array = $data0 -> fetch_all(MYSQLI_ASSOC);;//mysqli_fetch_array($data0, MYSQLI_NUM);
-        print_r($data0Array);
-        echo sizeof($data0Array);
-        for ($i=0; $i <sizeof($data0Array) ; $i++) { 
+        $query= "SELECT email, firstname, middlename, surname from accounts";
+        $data = mysqli_query($con, $query);
+        $arr = $data-> fetch_all(MYSQLI_ASSOC);;//mysqli_fetch_array($data0, MYSQLI_NUM);
+        for ($i=0; $i <sizeof($arr) ; $i++) { 
           echo "<tr>
-                  <td class='tname'>".$data0Array[$i]['firstname'].' '.$data0Array[$i]['middlename'].' '.$data0Array[$i]['surname']."</td></tr>
-                <a href='../
+                  <td class='tname'>".$arr[$i]['firstname'].' '.$arr[$i]['middlename'].' '.$arr[$i]['surname']."</td>
+                  <td><a href='../voter_reg.php'><button>edit</button>
+                  </tr>
                   ";
-            
-        # code...
-        // echo '<div>'.$data0Array[$i].'</div>';
-        // echo "<td>".$data0Array[$i]['firstname']."</td>";
-        // echo "<td>".$data0Array[$i]['middlename']."</td>";
-        // echo "<td>".$data0Array[$i]['lastname']."</td>";
-        // echo "<td>".$data0Array[$i]['firstname']."</td>";
-        // echo "<td>".$data0Array[$i]['firstname']."</td>";
-        // echo "<td class='tname'>".$data0Array[$i]['firstname']."</td>
-        // <td class='tcontent'>".$data0Array[$i]['firstname']."</td>
-        // <td class='tcontent'>".$data0Array[$i]['firstname']."</td>
-        // <td class='tcontent'>".Approved."</td>
-        // <td class='tcontent'><button>Edit</button></td>";
-        }
-      //  if($data0Array==[]){
-      //      $sql = "INSERT INTO users (email, name, password, category) VALUES ('$email', '$name', '$password', '$category')";
-      //      $result = mysqli_query($mysqli, $sql);
-      //      header("Location: login.php");
-      //      die();
-      //      // // Fetch all
-      //      // mysqli_fetch_all($result, MYSQLI_ASSOC);
-      //  }  
+        } 
     ?>
+    <tr>
+
+    </tr>
   <!-- </tr> -->
 
 </table> 

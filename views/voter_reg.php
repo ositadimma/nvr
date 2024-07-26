@@ -1,6 +1,10 @@
 <?php
 // Include config file
 require_once "../db_conn.php";
+if ($_SESSION['type']=='admin' || $_SESSION['type']=='eo') {
+    echo $_SESSION['type'];
+    include "../components/dash_nav.php";
+}
  
 // Define variables and initialize with empty values
 $email= $firstname = $middlename = $surname = $password = $confirm_password = "";
@@ -9,6 +13,25 @@ $email_err = $firstname_err = $middlename_err = $general_err = $surname_err = $p
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
+    
+
+// $target_dir = "../uploads/";
+// $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+// echo $target_file; 
+// $uploadOk = 1;
+// $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+// // Check if image file is a actual image or fake image
+// if(isset($_POST["submit"])) {
+//   $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+//   if($check !== false) {
+//     echo "File is an image - " . $check["mime"] . ".";
+//     $uploadOk = 1;
+//   } else {
+//     echo "File is not an image.";
+//     $uploadOk = 0;
+//   }
+// }
+
     // Validate values
   
     if(empty(trim($_POST["firstname"])) 
@@ -37,19 +60,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $surname_err = "surname can only contain letters";
             
         } 
-        // if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        //     $email_err= "please enter a valid email";
-        // }
+        
         if(!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
             $email_err= "please enter a valid email";
         }
-        // Prepare a select statement
-        // $stmt = "SELECT id, firstname FROM accounts WHERE email = '$email'";
-        // $res = mysqli_query($mysqli, $sql); 
-        // $data = $res -> fetch_array(MYSQLI_NUM);
-        // echo mysqli_error($mysqli);
-        // if($data==[]){
-        // }
     
         // $num = mysqli_num_rows($result);  
         $sql = "SELECT id, firstname FROM accounts WHERE email = ?";
@@ -65,6 +79,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_middlename = trim($_POST["middlename"]);
             $param_surname = trim($_POST["surname"]);
             $param_email = trim($_POST["email"]);
+            $param_line1 = trim($_POST["line1"]);
+            $param_line2 = trim($_POST["line2"]);
+            $param_post_code = trim($_POST["post_code"]);
+            $param_state = trim($_POST["state"]);
+
+
+
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
@@ -85,24 +106,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }
     
-    // Validate password
-    if(empty(trim($_POST["password"]))){
-        $password_err = "Please enter a password.";     
-    } elseif(strlen(trim($_POST["password"])) < 6){
-        $password_err = "Password must have atleast 6 characters.";
-    } else{
-        $password = trim($_POST["password"]);
-    }
-    
-    // Validate confirm password
-    if(empty(trim($_POST["confirm_password"]))){
-        $confirm_password_err = "Please confirm password.";     
-    } else{
-        $confirm_password = trim($_POST["confirm_password"]);
-        if(empty($password_err) && ($password != $confirm_password)){
-            $confirm_password_err = "Password did not match.";
-        }
-    }
+   
     
     // Check input errors before inserting in database
     if(empty($email_err) && 
@@ -115,12 +119,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // // Prepare an insert statement
         $refno= 'rg'.time();
         $param_email = $email;
-        $param_password = password_hash($password, PASSWORD_DEFAULT);
-        $res = mysqli_query($con, "INSERT INTO accounts (ref_no, email, firstname, middlename, surname, 
-        password, type) VALUES ('$refno','$param_email','$param_firstname', '$param_middlename', 
-        '$param_surname', '$param_password', 'basic')");
+        $res = mysqli_query($con, "INSERT INTO accounts (ref_no, email, firstname, middlename, surname, type) 
+        VALUES ('$refno','$param_email','$param_firstname', '$param_middlename', 
+        '$param_surname', 'basic')");
+        $res1 = mysqli_query($con, "INSERT INTO voters (line1, line2, `post code`, state ) 
+    VALUES ('$param_line1','$param_line2','$param_post_code', '$param_state')");
         if($res){
-            header("Location: login.php");
+            header("Location: ./admin/accounts.php");
         } else {
             $general_err= 'something went wrong';
         }
@@ -143,9 +148,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </style>
 </head>
 <body>
+
+    <?php 
+    if (isset($_SESSION['type']) && $_SESSION['type']=='admin') {
+        echo $_SESSION['type'];
+        include "../components/dash_nav.php";
+    }
+    ?>
+   
     <div class="wrapper">
-        <h2>Sign Up</h2>
-        <p>Create a new voter account.</p>
+        <h2>Complete Registration.</h2>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
                 <label>firstname</label>
@@ -170,21 +182,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <label>Address</label>     
             <div class="form-group">
                 <label>line 1</label>
-                <input type="password" name="line1" class="form-control ">
+                <input type="text" name="line1" class="form-control ">
                 
             </div>
             <div class="form-group">
                 <label>line 2</label>
-                <input type="password" name="line2" class="form-control">
+                <input type="text" name="line2" class="form-control">
             </div>
             <div class="form-group">
                 <label>post code</label>
-                <input type="password" name="post_code" class="form-control ">
+                <input type="text" name="post_code" class="form-control ">
                 
             </div>
             <div class="form-group">
                 <label>State</label>
                 <input type="password" name="state" class="form-control">
+            </div>
+            <!-- Select image to upload:
+            <input type="file" name="fileToUpload" id="fileToUpload"> -->
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Submit">
+                <input type="reset" class="btn btn-secondary ml-2" value="Reset">
             </div>
         </form>
         <span class="invalid-feedback"><?php echo $general_err; ?></span>

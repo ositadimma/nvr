@@ -124,3 +124,20 @@ body.loggedin {
 	padding: 5px;
 	margin: 0 0 10px 0;
 }
+
+.dash-nav{
+   padding: 20px;
+   width: 100%;
+   background-color: rgb(245, 217, 164);
+   text-decoration: none;
+   display: inline-block;
+   justify-content: space-around;
+   display: flex;
+   color: #2f3947;
+}
+
+.dash-nav>a{
+    text-decoration: none;
+    display: inline-block;
+
+ }

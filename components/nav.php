@@ -22,12 +22,26 @@ include 'db_conn.php';
 				
 				<?php
 				// authentication
-				if (isset($_SESSION['loggedin'])) {
-					echo '<a href="./views/profile.php"><i class="fas fa-user-circle"></i>Profile</a>';
+				
+				if (isset($_SESSION['type'])) {
+					if ($_SESSION['type']=='admin') {
+						echo '<a href="./views/admin/accounts.php"><i class="fas fa-user-circle"></i>admin</a>';
+					}
 				}
-				if (isset($_SESSION['loggedin'])) {
-					echo '<a href="./views/admin/accounts.php"><i class="fas fa-user-circle"></i>admin</a>';
+
+				if (isset($_SESSION['type'])) {
+					if (isset($_SESSION['loggedin'])) {
+						echo '<a href="./views/profile.php"><i class="fas fa-user-circle"></i>Profile</a>';
+					}
 				}
+
+				if (isset($_SESSION['type'])) {
+					if ($_SESSION['type']=='eo') {
+						echo '<a href="./views/admin/accounts.php"><i class="fas fa-user-circle"></i>election officer</a>';
+					}
+				}
+				
+				
 				?>    
 				<a href="./views/admin/accounts.php"><i class="fas fa-user-circle"></i>info</a>
 				<?php
